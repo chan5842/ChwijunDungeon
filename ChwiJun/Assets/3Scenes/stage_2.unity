@@ -21863,11 +21863,6 @@ MonoBehaviour:
   BestScore_Text2: {fileID: 701395194}
   GameOverText: {fileID: 1982869763}
   GameClearText: {fileID: 1537306161}
-  EndingImg:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &568378250
 Transform:
   m_ObjectHideFlags: 0

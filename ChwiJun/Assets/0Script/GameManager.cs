@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
-    public static int stageLevel = 1;
+    static int stageLevel = 1;
 
     public GameObject menuPanel; // esc로 불러올 메뉴
     public GameObject gamePanel; // 게임 인터페이스
@@ -75,78 +75,67 @@ public class GameManager : MonoBehaviour
     {
         if (isGameClear)
         {
-            // 1스테이지 클리어한 경우
-            if(stageLevel == 1)
-            {
-                resultPanel.SetActive(true);
+            resultPanel.SetActive(true);
+            //Time.timeScale = 0;
 
-                ResultScore_Text.text = score.ToString();
-                ScoreSave(score);
-            }
-            else
-            {
+            ResultScore_Text.text = score.ToString();
 
-                SceneManager.LoadScene("Ending");
-            }
-            //resultPanel.SetActive(true);
-            ////Time.timeScale = 0;
+            ScoreSave(score);
 
-            //ResultScore_Text.text = score.ToString();
-
-            //ScoreSave(score);
-            //BestScore_Text.text = PlayerPrefs.GetInt(0 + "BestScore").ToString();
-
-            //if (stageLevel > 1)
+            //if(score > PlayerPrefs.GetInt("BestScore"))
             //{
-            //    if (score < 60000)
-            //    {
-            //        GameClearText.text = "알바생 엔딩...";
-            //    }
-            //    else if (score < 90000)
-            //    {
-            //        GameClearText.text = "중소기업 취업 성공";
-            //    }
-            //    else if (score < 100000)
-            //    {
-            //        GameClearText.text = "대기업 취업 성공";
-            //    }
-            //    else
-            //    {
-            //        GameClearText.text = "억만장자!!!!";
-            //    }
-            //    AudioManager.Instance.BgmStop();
+            //    PlayerPrefs.SetInt("BestScore", score);
             //}
+            BestScore_Text.text = PlayerPrefs.GetInt(0 + "BestScore").ToString();
+
+            if (stageLevel > 1)
+            {
+                if (score < 60000)
+                {
+                    GameClearText.text = "알바생 엔딩...";
+                }
+                else if (score < 90000)
+                {
+                    GameClearText.text = "중소기업 취업 성공";
+                }
+                else if (score < 100000)
+                {
+                    GameClearText.text = "대기업 취업 성공";
+                }
+                else
+                {
+                    GameClearText.text = "억만장자!!!!";
+                }
+                AudioManager.Instance.BgmStop();
+            }
         }
         if (isGameOver)
         {
-            SceneManager.LoadScene("GameOver");
-            //gameOverPanel.SetActive(true);
-            //if(stageLevel > 1)
-            //{ 
-            //    if(score < 60000)
-            //    {
-            //        GameOverText.text = "알바생 엔딩...";
-            //    }
-            //    else if(score < 90000)
-            //    {
-            //        GameOverText.text = "중소기업 취업 성공";
-            //    }
-            //    else if(score < 100000)
-            //    {
-            //        GameOverText.text = "대기업 취업 성공";
-            //    }
-            //    else
-            //    {
-            //        GameOverText.text = "억만장자!!!!";
-            //    }
-            //}
-
-            //ResultScore_Text2.text = score.ToString();
-            //ScoreSave(score);
-            //BestScore_Text2.text = PlayerPrefs.GetInt(0 + "BestScore").ToString();
-            //AudioManager.Instance.BgmStop();
-
-
+            gameOverPanel.SetActive(true);
+            if(stageLevel > 1)
+            { 
+                if(score < 60000)
+                {
+                    GameOverText.text = "알바생 엔딩...";
+                }
+                else if(score < 90000)
+                {
+                    GameOverText.text = "중소기업 취업 성공";
+                }
+                else if(score < 100000)
+                {
+                    GameOverText.text = "대기업 취업 성공";
+                }
+                else
+                {
+                    GameOverText.text = "억만장자!!!!";
+                }
+            }
+           
+            ResultScore_Text2.text = score.ToString();
+            ScoreSave(score);
+            BestScore_Text2.text = PlayerPrefs.GetInt(0 + "BestScore").ToString();
+            AudioManager.Instance.BgmStop();
 
         }
 
@@ -188,8 +177,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         stageLevel++;
-        isGameClear = false;
-        SceneManager.LoadScene("stage_2");
+        SceneManager.LoadScene(2);
     }
 
     public void ClearScene()
@@ -206,8 +194,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         stageLevel = 1;
         score = 0;
-        isGameOver = false;
-        isGameClear = false;
         
         SceneManager.LoadScene(1);
         AudioManager.Instance.BgmPlay();
